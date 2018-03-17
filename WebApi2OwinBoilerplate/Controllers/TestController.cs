@@ -5,6 +5,13 @@ namespace WebApi2OwinBoilerplate.Controllers
     [RoutePrefix("api")]
     public class TestController : ApiController
     {
+        //structure map test
+        private MockRepo _repo;
+
+        public TestController(MockRepo repo)
+        {
+            _repo = repo;
+        }
         [Route("v1/test")]
         public IHttpActionResult GetV1()
         {
@@ -14,7 +21,7 @@ namespace WebApi2OwinBoilerplate.Controllers
         [Route("v2/test")]
         public IHttpActionResult GetV2()
         {
-            return Ok(new { value = "Hello V2" });
+            return Ok(_repo.GetElements());
         }
     }
 }
