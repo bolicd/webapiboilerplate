@@ -15,3 +15,12 @@ Easy to use production ready WebAPI boilerplate.
 ## ToDo
 * upgrade structure map version to 4.x
 
+## Usage
+
+Install nugetpackages, and run project.
+
+Routes
+
+    api/v1/test
+    api/v2/test -> uses mock repo via DI
+
