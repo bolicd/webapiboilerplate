@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Serialization;
 using Owin;
 using StructureMap;
+using Swashbuckle.Application;
 using System;
 using System.Diagnostics;
 using System.Net.Http.Headers;
@@ -50,6 +51,12 @@ namespace WebApi2OwinBoilerplate
             config.Formatters.JsonFormatter.SupportedMediaTypes
                 .Add(new MediaTypeHeaderValue("text/html"));
 
+            // release version wont have swagger
+#if DEBUG
+            config
+            .EnableSwagger(c => c.SingleApiVersion("v1", "PodMe Admin API"))
+            .EnableSwaggerUi();
+#endif
 
             return config;
         }
