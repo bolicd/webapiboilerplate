@@ -1,4 +1,8 @@
-﻿using System.Web.Http;
+﻿using AutoMapper;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+using WebApi2OwinBoilerplate.Models;
 
 namespace WebApi2OwinBoilerplate.Controllers
 {
@@ -22,6 +26,14 @@ namespace WebApi2OwinBoilerplate.Controllers
         public IHttpActionResult GetV2()
         {
             return Ok(_repo.GetElements());
+        }
+
+        [Route("v1/users")]
+        public List<UserDto> GetUsers()
+        {   
+            //automapper testing
+            var list = _repo.GetUsers().Select(x => Mapper.Map<UserDto>(x));
+            return list.ToList();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Serialization;
+﻿using AutoMapper;
+using Newtonsoft.Json.Serialization;
 using Owin;
 using StructureMap;
 using Swashbuckle.Application;
@@ -9,6 +10,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
 using WebApi2OwinBoilerplate.DependencyResolution;
+using WebApi2OwinBoilerplate.Models;
 
 namespace WebApi2OwinBoilerplate
 {
@@ -17,8 +19,14 @@ namespace WebApi2OwinBoilerplate
         public void Configuration(IAppBuilder appBuilder)
         {
             HttpConfiguration config = WebApiConfiguration();
+            AutoMapperConfiguration();
             ConfigureStructureMap(config);
             appBuilder.UseWebApi(config);
+        }
+
+        private static void AutoMapperConfiguration()
+        {
+            Mapper.Initialize(cfg => cfg.CreateMap<User, UserDto>());
         }
 
         private static void ConfigureStructureMap(HttpConfiguration config)
