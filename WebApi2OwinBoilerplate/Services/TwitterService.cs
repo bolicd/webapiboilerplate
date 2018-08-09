@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
+using WebApi2OwinBoilerplate.DTO;
 using WebApi2OwinBoilerplate.Models;
 using WebApi2OwinBoilerplate.Repository;
 
@@ -33,6 +34,17 @@ namespace WebApi2OwinBoilerplate.Services
                 return true;
             }
             return false;
+        }
+
+        public async Task<IEnumerable<TweetResultDto>> GetTweets()
+        {
+            var userId = ClaimsPrincipal.Current.FindFirst("uid")?.Value;
+            var result = await _tweetRepo.FindAsync(x => x.UserId.ToString().Equals(userId));
+            return result.Select(x => new TweetResultDto()
+            {
+                DateAdded = x.TweetAdded,
+                Tweet = x.TweetText
+            });
         }
     }
 }

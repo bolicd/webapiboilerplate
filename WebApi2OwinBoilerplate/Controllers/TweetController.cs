@@ -27,5 +27,14 @@ namespace WebApi2OwinBoilerplate.Controllers
             return Ok();
         }
 
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetTweets()
+        {
+            var userId = ClaimsPrincipal.Current.FindFirst("uid")?.Value;
+            var result = await _twitterService.GetTweets();
+            return Ok(result);
+        }
     }
 }
