@@ -22,6 +22,7 @@ namespace WebApi2OwinBoilerplate.Controllers
             return Ok(new { value = "Hello" });
         }
 
+        [Authorize]
         [Route("v2/test")]
         public IHttpActionResult GetV2()
         {

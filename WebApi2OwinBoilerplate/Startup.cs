@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.Owin;
+using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using Owin;
 using StructureMap;
@@ -18,9 +20,11 @@ namespace WebApi2OwinBoilerplate
     {
         public void Configuration(IAppBuilder appBuilder)
         {
+            ConfigureOAuth(appBuilder);
             HttpConfiguration config = WebApiConfiguration();
             AutoMapperConfiguration();
             ConfigureStructureMap(config);
+            appBuilder.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             appBuilder.UseWebApi(config);
         }
 
@@ -62,11 +66,27 @@ namespace WebApi2OwinBoilerplate
             // release version wont have swagger
 #if DEBUG
             config
-            .EnableSwagger(c => c.SingleApiVersion("v1", "PodMe Admin API"))
+            .EnableSwagger(c => c.SingleApiVersion("v1", "API"))
             .EnableSwaggerUi();
 #endif
 
             return config;
+        }
+
+        public void ConfigureOAuth(IAppBuilder app)
+        {
+            OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
+            {
+                AllowInsecureHttp = true,
+                TokenEndpointPath = new PathString("/token"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                Provider = new SimpleAuthorizationServerProvider()
+            };
+
+            // Token Generation
+            app.UseOAuthAuthorizationServer(OAuthServerOptions);
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+
         }
     }
 
