@@ -23,15 +23,9 @@ namespace WebApi2OwinBoilerplate
         {
             ConfigureOAuth(appBuilder);
             HttpConfiguration config = WebApiConfiguration();
-            AutoMapperConfiguration();
             ConfigureStructureMap(config);
             appBuilder.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             appBuilder.UseWebApi(config);
-        }
-
-        private static void AutoMapperConfiguration()
-        {
-            Mapper.Initialize(cfg => cfg.CreateMap<User, UserDto>());
         }
 
         private static void ConfigureStructureMap(HttpConfiguration config)
