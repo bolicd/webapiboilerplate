@@ -18,6 +18,7 @@ namespace WebApi2OwinBoilerplate
 {
     public class Startup
     {
+        //start point
         public void Configuration(IAppBuilder appBuilder)
         {
             ConfigureOAuth(appBuilder);
