@@ -170,6 +170,7 @@
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
     <Compile Include="DependencyResolution\StructureMapWebApiDependencyResolver.cs" />
     <Compile Include="DependencyResolution\StructureMapWebApiDependencyScope.cs" />
+    <Compile Include="DTO\TweetDto.cs" />
     <Compile Include="Migrations\201808090906251_InitialCreate.cs" />
     <Compile Include="Migrations\201808090906251_InitialCreate.Designer.cs">
       <DependentUpon>201808090906251_InitialCreate.cs</DependentUpon>
@@ -184,6 +185,7 @@
     <Compile Include="Repository\IUow.cs" />
     <Compile Include="Repository\Uow.cs" />
     <Compile Include="Services\ITwitterService.cs" />
+    <Compile Include="Services\TwitterService.cs" />
     <Compile Include="SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

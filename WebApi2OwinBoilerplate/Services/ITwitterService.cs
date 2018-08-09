@@ -5,6 +5,6 @@ namespace WebApi2OwinBoilerplate.Services
 {
     interface ITwitterService
     {
-        Task<bool> AddNewTweet(string tweet,Guid userId);
+        Task<bool> AddNewTweet(string tweet,string userId);
     }
 }
